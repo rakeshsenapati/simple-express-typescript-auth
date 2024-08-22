@@ -1,7 +1,25 @@
-version: "3.4"
-
 services:
+  mysqldb:
+    container_name: mysql_dev_container
+    image: mysql
+    restart: unless-stopped
+    env_file: ./.env.development
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_HOST: mysqldb
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
   api:
+    restart: unless-stopped
+    container_name: api_dev_container
+    env_file: ./.env.development
+    depends_on:
+      - mysqldb
     build:
       context: .
       target: development
@@ -9,11 +27,9 @@ services:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - 3000:3000
-    command: npm run dev
+      - ${PORT}:3000
+    command: >
+      sh -c "npm run db:migrate && npm run dev"
 
-
-
-
-
-
+volumes:
+  db:

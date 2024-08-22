@@ -40,6 +40,15 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.User = require('./user.js')(sequelize, Sequelize.DataTypes)
+db.User = require('./user.js')(sequelize, Sequelize.DataTypes);
+
+(async () => {
+  try {
+    await db.sequelize.authenticate();
+    console.log("Database connection successful");
+  } catch (error) {
+    console.log("DB error", error);
+  }
+})();
 
 module.exports = db;

@@ -1,10 +1,28 @@
 version: '3.4'
 
 services:
+  mysqldb:
+    container_name: mysql_prod_container
+    image: mysql
+    restart: unless-stopped
+    env_file: ./.env.production
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_HOST: ${HOST}
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
   api:
+    container_name: api_prod_container
     build:
       context: .
       target: production
 
     ports:
-      - 4000:4000
+      - ${PORT}:4000
+    command: >
+      sh -c "npm run db:migrate:prod && npm start"
