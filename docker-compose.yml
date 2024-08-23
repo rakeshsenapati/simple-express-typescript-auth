@@ -25,4 +25,4 @@ services:
     ports:
       - ${PORT}:4000
     command: >
-      sh -c "npm run db:migrate:prod && npm start"
+      sh -c "npm run db:migrate:prod && db:seed:all:prod && npm start"

@@ -16,7 +16,7 @@ module.exports = {
         firstName: 'John',
         lastName: 'Doe',
         email: 'johndoe@yopmail.com',
-        password: '$2b$10$CYnXz/4uXOOZ/NJ4sMP/FOEQPiCAm55.aW3AH1fCDOjrO1AcSCU1q',
+        password: '$2b$10$gQG3g4uxjSkP5O0O.wAYfeZeJKAtrjplQpw.4R/N8wU3ILeYQRehO',
         createdAt: new Date(),
         updatedAt: new Date(),
       }], {});

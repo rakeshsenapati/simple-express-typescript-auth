@@ -51,5 +51,5 @@ docker compose -f docker-compose.yml down
 If you need to stop and remove all containers, networks, and all images used by any service in <em>docker-compose.yml</em> file, use the command:
 
 ```bash
-docker compose down --rmi all
+docker compose -f docker-compose.dev.yml down --rmi all
 ```
